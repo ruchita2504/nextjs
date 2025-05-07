@@ -4,6 +4,19 @@ import classes from './page.module.css';
 import dummyMeals from "@/data";
 import { getMeal } from '@/lib/meals';
 
+export async function generateMetadata({ params }) {
+    const meal = getMeal(params.mealsSlug);
+    if (!meal) {
+        notFound();
+    }
+
+    return {
+        title:meal.title,
+        description:meal.summary,
+
+    };
+}
+
 export default function MealsDetailsPage({params}) {
     const mealsData = getMeal(params.mealsSlug);
     if (!mealsData) {
